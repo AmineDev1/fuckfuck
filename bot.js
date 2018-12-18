@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(` ViceCity Roleplay ♥  `,"http://twitch.tv/S-F")
+client.user.setGame(` ViceCity RolePlay ♥  `,"http://twitch.tv/S-F")
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -27,6 +27,44 @@ client.user.setGame(` ViceCity Roleplay ♥  `,"http://twitch.tv/S-F")
   console.log('')
 });
 
+
+client.on('message', async message => {
+  if(message.author.bot) return;
+  let prefix = '-';
+
+  let command = message.content.split(" ")[0].slice(prefix.length);
+  let args = message.content.split(" ").slice(1);
+  if(!message.content.toLowerCase().startsWith(prefix)) return;
+
+  if(command == 'dc') {
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`لاتمتلك الصلاحيات لفعل ذلك! :x:`);
+    message.channel.send("جاري المسح..").then(async m => {
+      await message.guild.roles.forEach(role => {
+        if(/^\d+$/gi.test(role.name)) {
+          role.delete();
+        }
+      });
+      await m.edit(`تم إزالة جميع الالوان.`)
+    });
+  }
+});
+
+
+client.on('message', async msg => {
+const devs = ['417377495160193044'];
+if(!devs.includes(message.author.id)) return;
+  if(msg.author.bot) return;
+  let prefix = "*";
+  if(!msg.content.startsWith(prefix)) return;
+  let command = msg.content.split(" ")[0].slice(prefix.length);
+  let args = msg.content.split(" ").slice(1);
+
+  if(command == 'say') {
+    if(!args.join(" ")) return msg.delete();
+    msg.channel.send(args.join(" "));
+    return;
+  }
+});
 
 
 client.on('message', message => {
@@ -61,8 +99,151 @@ client.on('message', message => {
 });
 
 
+client.on('message', msg => {
+
+    if (msg.content == '$join') {
+        if (msg.member.voiceChannel) {
+
+     if (msg.member.voiceChannel.joinable) {
+         msg.member.voiceChannel.join().then(msg.react('white_check_mark'));
+     }
+    }
+}
+})
+client.on('ready', () => { //code bot not leave room voice //Bot Is Online
+    client.channels.get("521265412944691211").join(); //by : Toxic Codes
+    });
+
+client.on('message', message => {
+ var prefix = "-"
+
+if (message.content.toLowerCase().startsWith(prefix + `new`)) {
+    const reason = message.content.split(" ").slice(1).join(" ");
+    if (!message.guild.roles.exists("name", "Support Discord")) return message.channel.send(`\`Support Discord\` **لا توجد رتبة بأسم**`);
+    if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`**لديك تذكرة مفتوحة بالفعل**`);
+    message.guild.createChannel(`ticket`, "text").then(c => {
+        let role = message.guild.roles.find("name", "Support Discord");
+        let role2 = message.guild.roles.find("name", "@everyone");
+        c.overwritePermissions(role, {
+            SEND_MESSAGES: true,
+            READ_MESSAGES: true
+        });
+        c.overwritePermissions(role2, {
+            SEND_MESSAGES: false,
+            READ_MESSAGES: false
+        });
+        c.overwritePermissions(message.author, {
+            SEND_MESSAGES: true,
+            READ_MESSAGES: true
+        });
+        message.channel.send(`:white_check_mark: تم انشاء التذكرة`);
+        const embed = new Discord.RichEmbed()
+        .setColor(0xCF40FA)
+        .addField(`${message.author.username} **مرحبا بك**`, `
+يرجى محاولة شرح سبب فتح هذه التذكرة بأكبر قدر ممكن من التفاصيل. سيكون فريق الدعم ** ** هنا قريباً لمساعدتك`)
+        .setTimestamp();
+        c.send({ embed: embed });
+    }).catch(console.error);
+}
+if (message.content.toLowerCase().startsWith(prefix + `close`)) {
+    if (!message.channel.name.startsWith(`ticket`)) return message.channel.send(`لا يمكنك استخدام أمر الإغلاق خارج قناة التذاكر`);
+
+    message.channel.send(`**confirm** : هل انت متأكد من اغلاق التذكرة ؟ اذا انت متأكد اكتب`)
+    .then((m) => {
+      message.channel.awaitMessages(response => response.content === 'confirm', {
+        max: 1,
+        time: 10000,
+        errors: ['time'],
+      })
+      .then((collected) => {
+          message.channel.delete();
+        })
+        .catch(() => {
+          m.edit('انتهي وقت اغلاق التذكرة').then(m2 => {
+              m2.delete();
+          }, 3000);
+        });
+    });
+}
+
+});
+
+
  client.on('guildMemberAdd', member=> {
-    member.addRole(member.guild.roles.find("name","Member ,"));
+    member.addRole(member.guild.roles.find("name","☀ Members Of Community"));
+    });
+
+
+client.on('message', function(message) {
+    if (message.channel.type === "dm") {
+        if (message.author.id === client.user.id) return;
+        var RaYaN= new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setTimestamp()
+        .setTitle('``New Message in private``')
+        .setThumbnail(`${message.author.avatarURL}`)
+        .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
+        .setFooter(`From **${message.author.tag} (${message.author.id})**`)
+    client.channels.get("521271463135805450").send({embed:RaYaN});
+    }
+});
+ 
+
+client.on('message',async message => {
+    if(message.content.startsWith(prefix + "bc")) {
+      let filter = m => m.author.id === message.author.id;
+      let thisMessage;
+      let thisFalse;
+      message.channel.send('🇧🇨| **ارسل الرسالة الان**').then(msg => {
+
+      let awaitM = message.channel.awaitMessages(filter, {
+        max: 1,
+        time: 20000,
+        errors: ['time']
+      })
+      .then(collected => {
+        collected.first().delete();
+        thisMessage = collected.first().content;
+        msg.edit('🇧🇨| **هل انت متأكد؟**');
+        let awaitY = message.channel.awaitMessages(response => response.content === 'نعم' || 'لا' && filter,{
+          max: 1,
+          time: 20000,
+          errors: ['time']
+        })
+        .then(collected => {
+          if(collected.first().content === 'لا') {
+            msg.delete();
+            message.delete();
+            thisFalse = false;
+          }
+          if(collected.first().content === 'نعم') {
+            if(thisFalse === false) return;
+          message.guild.members.forEach(member => {
+            msg.edit('🇧🇨| **جاري الارسال**');
+            collected.first().delete();
+            member.send(`${thisMessage}\n\n${member} ,\nتم الارسال من : ${message.guild.name}\n تم الارسال بواسطة : ${message.author.tag}`);
+          });
+          }
+        });
+      });
+      });
+    }
+  });
+
+
+client.on('message', msg => {
+
+    if (msg.content == '$join') {
+        if (msg.member.voiceChannel) {
+
+     if (msg.member.voiceChannel.joinable) {
+         msg.member.voiceChannel.join().then(msg.react('white_check_mark'));
+     }
+    }
+}
+})
+client.on('ready', () => {
+    client.channels.get("506417070024556544").join(); 
     });
 
 
@@ -85,149 +266,11 @@ client.on("message", message => {
 
 client.on("guildMemberAdd", member => {
   member.createDM().then(function (channel) {
-  return channel.send(`:rose:  **Welcome To ViceCity RolePlay :rose: 
+  return channel.send(`:rose:  **Welcome To ViceCity Server:rose: 
 :crown:اسم العضو  ${member}:crown:  
 انت العضو رقم ${member.guild.memberCount} `) 
 }).catch(console.error)
 })
-
-
-client.on('message', msg => {
-  if(msg.content === 'السلام عليكم')
-  msg.reply('و عليكم السلام و رحمة الله و بركاتة')
-});
-
-
-antispam(client, {
-  warnBuffer: 3, //الحد الأقصى المسموح به من الرسائل لإرسالها في الفاصل الزمني قبل الحصول على تحذير.
-  maxBuffer: 5, // الحد الأقصى المسموح به من الرسائل لإرسالها في الفاصل الزمني قبل الحصول على ميوت.
-  interval: 1000, // مقدار الوقت قبل حصول باند
-  warningMessage: "***   تسوي سبام ***", // رسالة تحذير اذا سوا سبام!
-  roleMessage: "***تم إعطائك ميوت لعدم إحترامك القوانين***", // الرسالة الي تجي اذا شخص اخذ ميوت
-  roleName: "Muted", // اسم رتبة الميوت
-  maxDuplicatesWarning: 7, // عدد الرسايل الي قبل التحذيرات
-  maxDuplicatesBan: 10, // عدد الرسايل الي يقدر المستخدم يرسلها قبل الميوت
-  time: 10, // عدد الوقت الي يجلس لين تسحب رتبة الميوت من الشخص الحسبة برمجية وليست كتابية
-});
-
-
-var prefix = "-";
-
-client.on('message', async message => {
-  let args = message.content.split(" ");
-  if(message.content.startsWith(prefix + "mute")) {
-    if(!message.member.hasPermission("MANAGE_ROLES")) return message.reply('**أنت لا تملك الخصائص اللازمة . يجب توفر خاصية `Manage Roles`**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return message.reply('**أنا لا املك الخصائص الكافية . يلزم خصائص `Manage Roles` للقيام بهذا الامر**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    let mention = message.mentions.members.first();
-    if(!mention) return message.reply('**منشن عضو لأسكاته ( لأعطائة ميوت ) كتابي**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    if(mention.highestRole.position >= message.guild.member(message.author).highestRole.positon) return message.reply('**لا يمكنك اعطاء لميوت شخص رتبته أعلى منك**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-    if(mention.highestRole.positon >= message.guild.member(client.user).highestRole.positon) return message.reply('**لا يمكنني إعطاء ميوت لشخص رتبته أعلى مني**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-    if(mention.id === message.author.id) return message.reply('**لا يمكنك اعطاء ميوت  لنفسك**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    let duration = args[2];
-    if(!duration) return message.reply('**حدد وقت زمني لفك الميوت عن الشخص**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    if(isNaN(duration)) return message.reply('**حدد وقت زمني صحيح**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    let reason = message.content.split(" ").slice(3).join(" ");
-    if(!reason) reason = "غير محدد";
-
-    let thisEmbed = new Discord.RichEmbed()
-    .setAuthor(mention.user.username, mention.user.avatarURL)
-    .setTitle('تم إعطائك ميوت ')
-    .setThumbnail(mention.user.avatarURL)
-    .addField('# - السيرفر',message.guild.name,true)
-    .addField('# - تم اعطائك ميوت بواسطة',message.author,true)
-    .addField('# - السبب',reason)
-
-    let role = message.guild.roles.find('name', 'Muted') || message.guild.roles.get(r => r.name === 'Muted');
-    if(!role) try {
-      message.guild.createRole({
-        name: "Muted",
-        permissions: 0
-      }).then(r => {
-        message.guild.channels.forEach(c => {
-          c.overwritePermissions(r , {
-            SEND_MESSAGES: false,
-            READ_MESSAGES_HISTORY: false,
-            ADD_REACTIONS: false
-          });
-        });
-      });
-    } catch(e) {
-      console.log(e.stack);
-    }
-    mention.addRole(role).then(() => {  // حقوق الفا كومينتي
-      mention.send(thisEmbed);
-      message.channel.send(`**:white_check_mark: ${mention.user.username} muted in the server ! :zipper_mouth:  **  `);
-      mention.setMute(true);
-    });
-    setTimeout(() => {
-      if(duration === 0) return;
-      mention.setMute(false);
-      mention.removeRole(role);
-      message.channel.send(`**:white_check_mark: ${mention.user.username} unmuted in the server ! :neutral_face:  **  `); // حقوق الفا كومينتي
-    },duration * 60000);
-  } else if(message.content.startsWith(prefix + "unmute")) {
-    let mention = message.mentions.members.first();
-    let role = message.guild.roles.find('name', 'Muted') || message.guild.roles.get(r => r.name === 'Muted');
-    if(!message.member.hasPermission("MANAGE_ROLES")) return message.reply('**أنت لا تملك الخصائص اللازمة . يجب توفر خاصية `Manage Roles`**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return message.reply('**أنا لا املك الخصائص الكافية . يلزم خصائص `Manage Roles` للقيام بهذا الامر**').then(msg => {
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-    if(!mention) return message.reply('**منشن الشخص لفك الميوت عنه**').then(msg => { // حقوق الفا كومينتي
-      msg.delete(3500);
-      message.delete(3500);
-    });
-
-      mention.removeRole(role);
-      mention.setMute(false);
-      message.channel.send(`**:white_check_mark: ${mention.user.username} unmuted in the server ! :neutral_face:  **  `); // حقوق الفا كومينتي
-  }
-});
-
-
-client.on('message',function(message) {
-  if(!message.channel.guild) return undefined;
-  const swearWords = ["كسمك","قحبة","الله يلعنك","منيوك","مخنث"];
-  if (swearWords.some(word => message.content.includes(word)) ) {
-    message.delete()
-    message.reply(" :pray:  ممنوع السب يا مدير "); 
-  }
-});
 
 
 
