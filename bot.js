@@ -114,6 +114,7 @@ client.on('ready', () => { //code bot not leave room voice //Bot Is Online
     client.channels.get("521265412944691211").join(); //by : Toxic Codes
     });
 
+
 client.on('message', message => {
  var prefix = "-"
 
@@ -170,7 +171,7 @@ if (message.content.toLowerCase().startsWith(prefix + `close`)) {
 
 
  client.on('guildMemberAdd', member=> {
-    member.addRole(member.guild.roles.find("name","☀ Members Of Community"));
+    member.addRole(member.guild.roles.find("name","Member ,"));
     });
 
 
