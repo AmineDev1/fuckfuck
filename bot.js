@@ -28,6 +28,7 @@ client.user.setGame(` ViceCity Roleplay ♥  `,"http://twitch.tv/S-F")
 });
 
 
+
 client.on('message', message => {
     if (message.content.startsWith("رابط")) {
 
@@ -94,12 +95,6 @@ client.on("guildMemberAdd", member => {
 client.on('message', msg => {
   if(msg.content === 'السلام عليكم')
   msg.reply('و عليكم السلام و رحمة الله و بركاتة')
-});
-
-
-client.on('message', msg => {
-  if(msg.content === 'هلا')
-  msg.reply('هلا بيك')
 });
 
 
