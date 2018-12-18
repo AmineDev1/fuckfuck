@@ -114,7 +114,6 @@ client.on('ready', () => { //code bot not leave room voice //Bot Is Online
     client.channels.get("521265412944691211").join(); //by : Toxic Codes
     });
 
-
 client.on('message', message => {
  var prefix = "-"
 
@@ -167,6 +166,32 @@ if (message.content.toLowerCase().startsWith(prefix + `close`)) {
     });
 }
 
+});
+
+
+client.on("ready", async  => {
+setInterval(function(){
+client.channels.find('id', '521265412944691211').setName("W");
+client.channels.find('id', '521265412944691211').setName("We");
+client.channels.find('id', '521265412944691211').setName("Wel");
+client.channels.find('id', '521265412944691211').setName("Welc");
+client.channels.find('id', '521265412944691211').setName("Welco");
+client.channels.find('id', '521265412944691211').setName("Welcom");
+client.channels.find('id', '521265412944691211').setName("Welcome");
+client.channels.find('id', '521265412944691211').setName("Welcome T");
+client.channels.find('id', '521265412944691211').setName("Welcome To");
+client.channels.find('id', '521265412944691211').setName("Welcome To K");
+client.channels.find('id', '521265412944691211').setName("Welcome To KS");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA C");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA Com");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA Comm");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA Commu");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA Commun");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA Communi");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA Communit");
+client.channels.find('id', '521265412944691211').setName("Welcome To KSA Community");
+  }, 3000);
 });
 
 
@@ -267,7 +292,7 @@ client.on("message", message => {
 
 client.on("guildMemberAdd", member => {
   member.createDM().then(function (channel) {
-  return channel.send(`:rose:  **Welcome To ViceCity Server:rose: 
+  return channel.send(`:rose:  **Welcome To ViceCity RolePlay:rose: 
 :crown:اسم العضو  ${member}:crown:  
 انت العضو رقم ${member.guild.memberCount} `) 
 }).catch(console.error)
